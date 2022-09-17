@@ -1,0 +1,8 @@
+{
+    "authToken": "TOKEN HERE",
+    "clientID": "CLIENT ID HERE",
+    "prefix": "PREFIX HERE",
+    "owner": [
+        "OWNER ID HERE"
+    ]
+}
