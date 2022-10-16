@@ -26,7 +26,7 @@ module.exports = async () => {
         }
     });
 
-    if (!config.CLIENTID) {
+    if (!config.clientID) {
         console.log("[CRUSH] You have to provide your client ID in config file".red + "\n");
         return process.exit()
     };
