@@ -31,10 +31,10 @@ module.exports = async () => {
         return process.exit()
     };
 
-    const rest = new REST({ version: '10' }).setToken(config.TOKEN);
+    const rest = new REST({ version: '10' }).setToken(config.authToken);
  
     await rest.put(
-        Routes.applicationCommands(config.CLIENTID),
+        Routes.applicationCommands(config.clientID),
         { body: slash }
     ).then(() => {
         console.log("----------------------------------------".magenta);
