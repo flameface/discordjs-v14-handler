@@ -7,7 +7,6 @@ module.exports = {
 };
 
 client.on('messageCreate', async (message) => {
-
     let prefix = config.prefix;
     if (message.channel.type !== 0) return;
     if (message.author.bot) return;
@@ -24,40 +23,27 @@ client.on('messageCreate', async (message) => {
     if (!command) command = client.commands.get(client.aliases.get(cmd))
 
     if (command) {
-        if (command.userPermissions) {
-            const embed = new EmbedBuilder()
-                .setDescription(`💢 **[${message.member.displayName}]** you don't have permissions to use this command\n\`\`\`\n${command.userPermissions || []}\n\`\`\``)
-                .setColor('Red')
+        if (command.owner) {
+            if (!client.config.owner.includes(message.member.id)) {
+                message.reply({
+                    content: `**${message.member}** You can't access owner commands`,
+                })
+                return false;
+            }
+        }
 
+        if (command.userPermissions) {
             if (!message.member.permissions.has(PermissionsBitField.resolve(command.userPermissions || []))) return message.reply({
-                embeds: [embed],
+                content: `${message.member} You don't have the required permissions to use this command -> \`${command.userPermissions || []}\``,
             })
+            return false;
         }
 
         if (command.botPermissions) {
-            const embed = new EmbedBuilder()
-                .setDescription(`💢 **[${message.member.displayName}]** i don't have permissions to use this command\n\`\`\`\n${command.botPermissions || []}\n\`\`\``)
             if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.botPermissions || []))) return message.reply({
-                embeds: [embed]
+                content: `${message.member} I don't have the required permissions to use this command -> \`${command.botPermissions || []}\``
             })
-        }
-
-        if (command.owner, command.owner == true) {
-            if (!config.owner) return;
-            const allowedUsers = [];
-
-            config.owner.forEach(user => {
-                const fetchOwner = message.guild.members.cache.get(user);
-                if (!fetchOwner) return allowedUsers.push(`**[Unknown#0000]**`)
-                allowedUsers.push(`${fetchOwner.user.tag}`);
-            });
-
-            const embed = new EmbedBuilder()
-                .setDescription(`💢 **[${message.member.displayName}]** only owners can use this command!\n\`\`\`\n${allowedUsers.join(", ")}\n\`\`\``)
-                .setColor('Red')
-            if (!config.owner.some(ID => message.member.id.includes(ID))) return message.reply({
-                embeds: [embed]
-            })
+            return false;
         }
 
         try {
