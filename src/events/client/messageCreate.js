@@ -28,7 +28,6 @@ client.on('messageCreate', async (message) => {
                 message.reply({
                     content: `**${message.member}** You can't access owner commands`,
                 })
-                return false;
             }
         }
 
@@ -36,14 +35,12 @@ client.on('messageCreate', async (message) => {
             if (!message.member.permissions.has(PermissionsBitField.resolve(command.userPermissions || []))) return message.reply({
                 content: `${message.member} You don't have the required permissions to use this command -> \`${command.userPermissions || []}\``,
             })
-            return false;
         }
 
         if (command.botPermissions) {
             if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.botPermissions || []))) return message.reply({
                 content: `${message.member} I don't have the required permissions to use this command -> \`${command.botPermissions || []}\``
             })
-            return false;
         }
 
         try {
