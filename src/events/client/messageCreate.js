@@ -38,7 +38,7 @@ client.on('messageCreate', async (message) => {
         }
 
         if (command.botPermissions) {
-            if (!message.guild.members.cache.get(client.user.id).permissions.has(PermissionsBitField.resolve(command.botPermissions || []))) return message.reply({
+            if (!message.channel.permissionsFor(client.user.id).has(PermissionsBitField.resolve(command.botPermissions || []))) return message.reply({
                 content: `${message.member} I don't have the required permissions to use this command -> \`${command.botPermissions || []}\``
             })
         }
