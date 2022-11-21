@@ -3,7 +3,7 @@
     "colors": "^1.4.0",
     "discord.js": "^14.6.0"
   },
-  "name": "discordjs",
+  "name": "discordjs-v14-handler",
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "type": "commonjs",
   "keywords": [],
-  "author": "",
+  "author": "FlameFace#0570",
   "license": "ISC",
   "description": ""
 }
