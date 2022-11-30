@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "colors": "^1.4.0",
+    "common-tags": "^1.8.2",
     "discord.js": "^14.6.0"
   },
   "name": "discordjs-v14-handler",

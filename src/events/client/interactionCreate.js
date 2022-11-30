@@ -42,6 +42,6 @@ client.on("interactionCreate", async interaction => {
 
         await command.run(client, interaction, interaction.options)
     } catch (err) {
-        console.log(error);
+        console.log(err);
     }
 })
